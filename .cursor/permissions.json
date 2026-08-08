@@ -1,0 +1,34 @@
+{
+  "terminalAllowlist": [
+    "git status",
+    "git diff",
+    "git log",
+    "git show",
+    "git add",
+    "git commit",
+    "git push",
+    "git fetch",
+    "git pull",
+    "git branch",
+    "git rev-parse",
+    "git remote",
+    "git ls-files",
+    "git ls-remote",
+    "git tag",
+    "git describe",
+    "git symbolic-ref",
+    "git merge-base"
+  ],
+  "autoRun": {
+    "allow_instructions": [
+      "Allow routine git read commands (status, diff, log, show, branch, remote, rev-parse, ls-remote) without asking.",
+      "Allow git add/commit/push for project version releases when the user asked for versão/nova versão do projeto, as long as .env and secrets are not staged.",
+      "Allow Shell calls that use required_permissions all/git_write/full_network only for those safe git operations in this repo."
+    ],
+    "block_instructions": [
+      "Always require approval for git push --force, git push --force-with-lease, git reset --hard, git clean -fd, and any git config changes.",
+      "Always require approval for commands that read, print, copy, or commit .env, API keys, tokens, or credential files.",
+      "Block committing or pushing secrets even if the user message mentions a new version."
+    ]
+  }
+}

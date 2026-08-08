@@ -1,0 +1,29 @@
+---
+description: Em "versão/nova versão do projeto", commit+push PT-BR automático sem pedir confirmação
+alwaysApply: true
+---
+
+# Versão do projeto → commit + push automático
+
+Quando a mensagem do usuário corresponder a frases como:
+
+- `versão nova do projeto …`
+- `nova versao do projeto …` / `nova versão do projeto …`
+- `Versão nova do projeto …`
+
+**Aja imediatamente:** faça bump/commit/push sem perguntar confirmação ao usuário.
+
+## Como executar
+
+1. Use a ferramenta **Shell** com `required_permissions` incluindo o necessário para git write e rede (`git_write`, `full_network`, ou preferencialmente `["all"]` neste ambiente Windows) para reduzir prompts de Allow/sandbox.
+2. Mensagens de commit **sempre em PT-BR**.
+3. Formato preferido: `Versão nova do projeto X.Y.Z: <descrição>.`
+4. Faça stage do código-fonte relevante; **nunca** faça commit de `.env`, chaves de API, credenciais ou secrets.
+5. **Nunca** use `git push --force` / `--force-with-lease` destrutivo, nem `git config` (nunca alterar git config).
+6. Após o push, informe o hash do commit e o status no remote (`origin`).
+
+## Exemplo
+
+Usuário: `nova versao do projeto 1.0.1 "Versão com API Groq"`
+
+Agente: bump → `git add` (sem `.env`) → commit PT-BR → `git push origin` → reportar hash/URL.
