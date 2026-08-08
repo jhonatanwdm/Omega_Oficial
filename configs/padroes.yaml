@@ -1,0 +1,32 @@
+versao: "1.0.0"
+descricao: "Padrões de engenharia do monorepo Omega"
+
+idioma:
+  docs: pt-BR
+  comentarios_dominio: pt-BR
+  logs: pt-BR
+  codigo_identificadores: pt-BR_ou_ingles_tecnico_estavel
+
+python:
+  versao_minima: "3.12"
+  estilo: "modulos pequenos, tipagem, async na borda I/O"
+  testes: pytest
+
+flutter:
+  estado: riverpod
+  rotas: go_router
+  i18n: arb
+  alvos: [android, web, windows]
+
+modulos:
+  - Cada pasta em nucleo/ e sub_agentes/ expoe interface clara.
+  - Contratos compartilhados em contratos/.
+  - Configs vivas em configs/*.yaml.
+
+git:
+  mensagens: "pt-BR ou ingles curto focando no porquê"
+  nunca_commit_segredos: true
+
+observabilidade:
+  logs_estruturados: true
+  correlacao_por_requisicao: true

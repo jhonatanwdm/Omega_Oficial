@@ -1,0 +1,54 @@
+versao: "1.0.0"
+descricao: "Motor de decisão do Omega"
+
+autorizacao:
+  exige_token_desenvolvedor: true
+  token_env: OMEGA_TOKEN_DEV
+  token_padrao_dev: "omega-dev-local"
+
+cloud_llm:
+  habilitada_por_padrao: false
+  exige_confirmacao: true
+  escopo_maximo_minutos: 60
+  provedores_permitidos:
+    - openai
+    - anthropic
+
+autoaperfeicoamento:
+  pode_propor: true
+  pode_aplicar_direto_em_producao: false
+  exige_avaliacao: true
+  exige_backup_antes_apply: true
+  sandbox_obrigatorio: true
+
+memoria:
+  nunca_somente_ram: true
+  gravar_pg: true
+  gravar_vetor: true
+  fatos_via_rag: true
+  preferencias_via_lora: true
+
+voz:
+  modo_padrao: turno_a_turno
+  fallback_texto: true
+  stt: faster-whisper
+  tts: piper
+
+tempo:
+  armazenamento: UTC
+  exibicao: America/Sao_Paulo
+  limiar_drift_segundos: 30
+
+sync:
+  hub_fonte_da_verdade: true
+  conflito_padrao: last_write_wins
+  memoria_critica_merge_manual: true
+
+updates:
+  esquema: semver
+  backup_pre_update: true
+  changelog_idioma: pt-BR
+
+backups:
+  retencao_estaveis: 10
+  marcar_ouro: true

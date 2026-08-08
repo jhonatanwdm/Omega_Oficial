@@ -1,0 +1,10 @@
+{
+  "@@locale": "en",
+  "appNome": "Omega",
+  "subtitulo": "Your personal agent, always near.",
+  "ctaConversar": "Talk",
+  "placeholder": "Talk to Omega...",
+  "enviando": "Thinking...",
+  "voz": "Voice",
+  "texto": "Text"
+}

@@ -1,0 +1,103 @@
+versao: "1.0.0"
+descricao: "Lista do que o Omega pode e não pode fazer"
+
+niveis_risco:
+  - baixo
+  - medio
+  - alto
+  - critico
+
+pode:
+  - id: conversar_texto
+    plataformas: [android, web, desktop, hub]
+    risco: baixo
+    confirmacao_humana: false
+  - id: conversar_voz
+    plataformas: [android, web, desktop, hub]
+    risco: baixo
+    confirmacao_humana: false
+  - id: ler_memoria
+    plataformas: [hub]
+    risco: baixo
+    confirmacao_humana: false
+  - id: gravar_memoria_aprovada
+    plataformas: [hub]
+    risco: medio
+    confirmacao_humana: false
+  - id: buscar_conhecimento_local
+    plataformas: [hub]
+    risco: baixo
+    confirmacao_humana: false
+  - id: usar_llm_local
+    plataformas: [hub]
+    risco: baixo
+    confirmacao_humana: false
+  - id: usar_llm_cloud
+    plataformas: [hub]
+    risco: alto
+    confirmacao_humana: true
+    exige_flag: cloud_llm_habilitada
+  - id: ler_arquivo_allowlist
+    plataformas: [desktop, hub]
+    risco: medio
+    confirmacao_humana: false
+  - id: escrever_arquivo_allowlist
+    plataformas: [desktop, hub]
+    risco: alto
+    confirmacao_humana: true
+  - id: shell_allowlist
+    plataformas: [hub]
+    risco: critico
+    confirmacao_humana: true
+  - id: notificacao_android
+    plataformas: [android]
+    risco: baixo
+    confirmacao_humana: false
+  - id: agenda_ler
+    plataformas: [android, desktop, hub]
+    risco: baixo
+    confirmacao_humana: false
+  - id: agenda_escrever
+    plataformas: [android, desktop, hub]
+    risco: medio
+    confirmacao_humana: true
+  - id: treinar_lora
+    plataformas: [hub]
+    risco: critico
+    confirmacao_humana: true
+  - id: aplicar_update
+    plataformas: [hub]
+    risco: critico
+    confirmacao_humana: true
+  - id: restaurar_backup
+    plataformas: [hub]
+    risco: critico
+    confirmacao_humana: true
+
+nao_pode:
+  - id: formatar_disco
+    motivo: "Destrutivo irreversível"
+  - id: apagar_sistema
+    motivo: "Risco crítico ao SO"
+  - id: exfiltrar_dados_sem_autorizacao
+    motivo: "Privacidade do desenvolvedor"
+  - id: persistencia_oculta
+    motivo: "Segurança"
+  - id: alterar_politicas_sozinho
+    motivo: "Governança humana obrigatória"
+  - id: publicar_modelo_sem_aprovacao
+    motivo: "Controle de qualidade"
+  - id: shell_livre
+    motivo: "Somente comandos na allowlist"
+  - id: bypass_seguranca
+    motivo: "Inviolável"
+
+allowlist_caminhos_windows:
+  - "C:\\Mundo_Web_Antigo\\Omega\\dados"
+  - "C:\\Mundo_Web_Antigo\\Omega\\configs"
+
+allowlist_shell:
+  - "python -m pytest"
+  - "python -m nucleo.api.principal"
+  - "git status"
+  - "git diff"

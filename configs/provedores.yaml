@@ -1,0 +1,41 @@
+versao: "1.0.0"
+
+llm_local:
+  provedor: ollama
+  base_url: "http://127.0.0.1:11434"
+  modelo_padrao: "qwen2.5:7b"
+  timeout_segundos: 120
+
+llm_cloud:
+  openai:
+    habilitado: false
+    modelo_padrao: "gpt-4o-mini"
+    env_key: OPENAI_API_KEY
+  anthropic:
+    habilitado: false
+    modelo_padrao: "claude-sonnet-4-20250514"
+    env_key: ANTHROPIC_API_KEY
+  gemini:
+    habilitado: false
+    modelo_padrao: "gemini-2.0-flash"
+    env_key: GEMINI_API_KEY
+
+voz:
+  whisper:
+    modelo: "base"
+    dispositivo: "cpu"
+  piper:
+    voz_padrao: "pt_BR-faber-medium"
+    habilitado: true
+
+embeddings:
+  modelo: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+  dimensao: 384
+  fallback_hash: true
+
+banco:
+  postgres_url_env: OMEGA_DATABASE_URL
+  sqlite_fallback: "sqlite+aiosqlite:///./dados/omega.db"
+  redis_url: "redis://127.0.0.1:6379/0"
+  qdrant_url: "http://127.0.0.1:6333"
+  qdrant_colecao: "omega_conhecimento"

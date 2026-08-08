@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: omega
+      POSTGRES_PASSWORD: omega
+      POSTGRES_DB: omega
+    ports:
+      - "5432:5432"
+    volumes:
+      - omega_pg:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.5
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - omega_qdrant:/qdrant/storage
+
+volumes:
+  omega_pg:
+  omega_qdrant:

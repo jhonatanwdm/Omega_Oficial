@@ -1,0 +1,219 @@
+:root {
+  --verde: #1f6f5b;
+  --verde-vivo: #2f9e7f;
+  --azul: #0e2a3a;
+  --azul-fala: #1d4e89;
+  --areia: #e6d3b3;
+  --cobre: #c9892d;
+  --alerta: #a33b2b;
+  --gelo: #f3f7f5;
+  --texto: #f7faf8;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: "Manrope", sans-serif;
+  color: var(--texto);
+  background: var(--azul);
+}
+
+.atmosfera {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(1200px 700px at 15% 10%, rgba(47, 158, 127, 0.35), transparent 60%),
+    radial-gradient(900px 600px at 85% 20%, rgba(201, 137, 45, 0.22), transparent 55%),
+    linear-gradient(160deg, #0e2a3a 0%, #1f6f5b 55%, #e6d3b3 140%);
+  z-index: 0;
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2.5rem 1.4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  animation: entrar 0.8s ease both;
+}
+
+.marca {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(3.4rem, 10vw, 5.6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.tagline {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--areia);
+  max-width: 28ch;
+}
+
+.orbe {
+  width: 150px;
+  height: 150px;
+  margin: 1.4rem auto 0.4rem;
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-self: center;
+}
+
+.orbe .nucleo {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: var(--verde);
+  box-shadow: 0 0 40px rgba(47, 158, 127, 0.55);
+  transition: background 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  animation: pulso 1.8s ease-in-out infinite;
+}
+
+.orbe .anel {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(243, 247, 245, 0.25);
+  animation: girar 10s linear infinite;
+}
+
+.orbe.ouvindo .nucleo { background: var(--verde-vivo); }
+.orbe.pensando .nucleo { background: var(--cobre); }
+.orbe.falando .nucleo { background: var(--azul-fala); }
+.orbe.alerta .nucleo { background: var(--alerta); }
+
+.cta {
+  border: 0;
+  border-radius: 14px;
+  padding: 0.95rem 1.6rem;
+  background: var(--verde);
+  color: var(--gelo);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.cta:hover { transform: translateY(-1px); background: var(--verde-vivo); }
+
+.status {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 55vh;
+  animation: entrar 0.55s ease both;
+}
+
+.chat.oculto, .hero.oculto { display: none; }
+
+.chat-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.acoes { display: flex; gap: 0.4rem; }
+.icone {
+  border: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.22);
+  color: var(--texto);
+  cursor: pointer;
+}
+.icone.ativo { outline: 2px solid var(--areia); }
+
+.mensagens {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.2rem 0 1rem;
+}
+
+.bolha {
+  max-width: min(72ch, 92%);
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  animation: subir 0.35s ease both;
+}
+.bolha.usuario {
+  align-self: flex-end;
+  background: rgba(255,255,255,0.16);
+}
+.bolha.omega {
+  align-self: flex-start;
+  background: rgba(0,0,0,0.28);
+}
+
+.composer {
+  display: flex;
+  gap: 0.55rem;
+}
+.composer input {
+  flex: 1;
+  border: 0;
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  background: rgba(0,0,0,0.28);
+  color: var(--texto);
+  font: inherit;
+}
+.composer input::placeholder { color: rgba(243,247,245,0.65); }
+.composer button {
+  border: 0;
+  border-radius: 14px;
+  padding: 0 1.2rem;
+  background: var(--verde);
+  color: var(--gelo);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@keyframes pulso {
+  0%, 100% { transform: scale(0.96); }
+  50% { transform: scale(1.05); }
+}
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+@keyframes entrar {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes subir {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .shell { padding: 1.4rem 1rem 1.2rem; }
+  .orbe { width: 120px; height: 120px; }
+}

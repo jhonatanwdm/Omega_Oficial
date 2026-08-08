@@ -1,0 +1,11 @@
+{
+  "id": "omega-lora_20260808T190752Z",
+  "status": "sandbox_avaliado",
+  "aprovado": true,
+  "metricas": {
+    "score": 0.5666666666666668,
+    "n": 9
+  },
+  "exemplos": 9,
+  "nota": "Adapter LoRA real (PEFT) pode ser plugado aqui com GPU NVIDIA"
+}

@@ -1,0 +1,26 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.env
+*.db
+dados/backups/*
+!dados/backups/.gitkeep
+dados/datasets_treino/*
+!dados/datasets_treino/.gitkeep
+.idea/
+.vscode/
+apps/omega_cliente/.dart_tool/
+apps/omega_cliente/build/
+apps/omega_cliente/.flutter-plugins
+apps/omega_cliente/.flutter-plugins-dependencies
+*.log
+.DS_Store
+build/
+dist/
+*.spec.bak
+
+# Executável gerado (não versionar)
+Omega.exe
+*.exe

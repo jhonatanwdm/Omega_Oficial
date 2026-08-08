@@ -1,0 +1,82 @@
+openapi: 3.0.3
+info:
+  title: Omega Hub API
+  version: 0.1.0
+  description: API do cérebro Omega (PT-BR)
+servers:
+  - url: http://127.0.0.1:8741
+paths:
+  /saude:
+    get:
+      summary: Saúde do hub
+      responses:
+        "200":
+          description: OK
+  /chat:
+    post:
+      summary: Conversar com o Omega
+      security:
+        - OmegaToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatPedido"
+      responses:
+        "200":
+          description: Resposta do orquestrador
+  /ws/voz:
+    get:
+      summary: WebSocket de voz turno a turno
+      responses:
+        "101":
+          description: Switching Protocols
+  /sync/pull:
+    post:
+      summary: Sincronização cliente ← hub
+      security:
+        - OmegaToken: []
+      responses:
+        "200":
+          description: Itens desde cursor
+  /backups:
+    get:
+      summary: Listar backups
+      security:
+        - OmegaToken: []
+      responses:
+        "200":
+          description: Lista
+    post:
+      summary: Criar backup
+      security:
+        - OmegaToken: []
+      responses:
+        "200":
+          description: Backup criado
+components:
+  securitySchemes:
+    OmegaToken:
+      type: apiKey
+      in: header
+      name: X-Omega-Token
+  schemas:
+    ChatPedido:
+      type: object
+      required: [texto]
+      properties:
+        texto:
+          type: string
+        conversa_id:
+          type: string
+          nullable: true
+        plataforma:
+          type: string
+          default: hub
+        confirmado:
+          type: boolean
+          default: false
+        modo:
+          type: string
+          enum: [texto, voz]

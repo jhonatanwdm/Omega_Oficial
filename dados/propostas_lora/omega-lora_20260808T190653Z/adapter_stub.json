@@ -1,0 +1,5 @@
+{
+  "tipo": "lora_stub",
+  "base": "qwen2.5",
+  "rank": 8
+}

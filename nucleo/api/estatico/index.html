@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Omega</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/ui/estilos.css" />
+</head>
+<body>
+  <div class="atmosfera"></div>
+  <main class="shell">
+    <header class="hero" id="hero">
+      <p class="marca">Omega</p>
+      <p class="tagline">Seu agente pessoal, sempre perto.</p>
+      <div class="orbe" id="orbe" aria-hidden="true">
+        <span class="anel"></span>
+        <span class="nucleo"></span>
+      </div>
+      <button type="button" class="cta" id="btnIniciar">Conversar</button>
+      <p class="status" id="statusHub">Conectando ao hub…</p>
+    </header>
+
+    <section class="chat oculto" id="painelChat" aria-label="Conversa com Omega">
+      <div class="chat-topo">
+        <strong>Omega</strong>
+        <div class="acoes">
+          <button type="button" class="icone" id="btnVoz" title="Falar">🎤</button>
+          <button type="button" class="icone" id="btnSync" title="Sincronizar">↻</button>
+        </div>
+      </div>
+      <div class="mensagens" id="mensagens"></div>
+      <form class="composer" id="formChat">
+        <input id="entrada" type="text" placeholder="Fale com o Omega…" autocomplete="off" />
+        <button type="submit" id="btnEnviar">Enviar</button>
+      </form>
+    </section>
+  </main>
+  <script src="/ui/app.js"></script>
+</body>
+</html>

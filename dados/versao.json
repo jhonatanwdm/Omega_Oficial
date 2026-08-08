@@ -1,0 +1,22 @@
+{
+  "versao": "0.1.1",
+  "changelog": [
+    {
+      "versao": "0.1.1",
+      "notas": "patch",
+      "em": "2026-08-08T19:08:27.875723+00:00",
+      "backup_id": "20260808T190827Z_pre_update_0.1.1"
+    },
+    {
+      "versao": "0.1.1",
+      "notas": "patch",
+      "em": "2026-08-08T19:07:52.696360+00:00",
+      "backup_id": "20260808T190752Z_pre_update_0.1.1"
+    },
+    {
+      "versao": "0.1.0",
+      "notas": "Fundação Omega — fases 0 a 6 implementadas no monorepo",
+      "em": "2026-08-08T00:00:00+00:00"
+    }
+  ]
+}
