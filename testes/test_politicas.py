@@ -1,10 +1,17 @@
+from nucleo.comum.config import get_settings
 from nucleo.politicas.motor_politicas import MotorPoliticas
 
 
 def test_cloud_desligada_por_padrao():
-    m = MotorPoliticas()
-    dec = m.avaliar("usar_llm_cloud", confirmado=True)
-    assert dec.permitido is False
+    settings = get_settings()
+    anterior = settings.cloud_llm_habilitada
+    settings.cloud_llm_habilitada = False
+    try:
+        m = MotorPoliticas()
+        dec = m.avaliar("usar_llm_cloud", confirmado=True)
+        assert dec.permitido is False
+    finally:
+        settings.cloud_llm_habilitada = anterior
 
 
 def test_nao_pode_shell_livre():

@@ -9,6 +9,7 @@
     orbeMini: document.getElementById("orbeMini"),
     chipFase: document.getElementById("chipFase"),
     status: document.getElementById("statusHub"),
+    statusChat: document.getElementById("statusChat"),
     mensagens: document.getElementById("mensagens"),
     form: document.getElementById("formChat"),
     entrada: document.getElementById("entrada"),
@@ -40,11 +41,28 @@
   }
 
   function bolha(papel, texto) {
-    const div = document.createElement("div");
-    div.className = `bolha ${papel === "usuario" ? "usuario" : "omega"}`;
-    div.textContent = texto;
-    el.mensagens.appendChild(div);
+    const wrap = document.createElement("article");
+    wrap.className = `msg ${papel === "usuario" ? "usuario" : "omega"}`;
+
+    const quem = document.createElement("span");
+    quem.className = "papel";
+    quem.textContent = papel === "usuario" ? "Você" : "Omega";
+
+    const corpo = document.createElement("p");
+    corpo.className = "texto";
+    corpo.textContent = texto;
+
+    wrap.append(quem, corpo);
+    el.mensagens.appendChild(wrap);
     el.mensagens.scrollTop = el.mensagens.scrollHeight;
+  }
+
+  function setStatus(texto) {
+    if (el.status) el.status.textContent = texto;
+    if (el.statusChat) {
+      el.statusChat.hidden = false;
+      el.statusChat.textContent = texto;
+    }
   }
 
   async function api(path, opts = {}) {
@@ -63,12 +81,10 @@
   async function checarHub() {
     try {
       const s = await fetch(BASE + "/saude").then((r) => r.json());
-      el.status.textContent = s.ok
-        ? `Hub online · v${s.versao || "?"} · tempo ok`
-        : "Hub com problemas";
+      setStatus(s.ok ? `Hub online · v${s.versao || "?"}` : "Hub com problemas");
       setFase("idle");
     } catch {
-      el.status.textContent = "Hub offline — inicie o Omega";
+      setStatus("Hub offline — inicie o Omega");
       setFase("alerta");
     }
   }
@@ -132,7 +148,9 @@
       reconhecimento.onend = () => {
         ouvindo = false;
         el.btnVoz.classList.remove("ativo");
-        if (el.orbe.classList.contains("ouvindo")) setFase("idle");
+        if (el.orbeMini?.classList.contains("ouvindo") || el.orbe?.classList.contains("ouvindo")) {
+          setFase("idle");
+        }
       };
       reconhecimento.onerror = () => {
         ouvindo = false;
@@ -163,10 +181,7 @@
         });
       }
       const tempo = await fetch(BASE + "/tempo").then((r) => r.json());
-      bolha(
-        "omega",
-        `Sincronizado. Relógio hub: ${tempo.local || tempo.utc || "ok"}`
-      );
+      bolha("omega", `Sincronizado. Relógio hub: ${tempo.local || tempo.utc || "ok"}`);
       setFase("idle");
     } catch (e) {
       setFase("alerta");
@@ -179,6 +194,10 @@
   el.btnIniciar.addEventListener("click", () => {
     el.hero.classList.add("oculto");
     el.painel.classList.remove("oculto");
+    if (el.statusChat && el.status) {
+      el.statusChat.hidden = false;
+      el.statusChat.textContent = el.status.textContent;
+    }
     el.entrada.focus();
     setFase("idle");
   });

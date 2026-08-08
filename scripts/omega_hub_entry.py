@@ -42,18 +42,18 @@ def main() -> None:
     if str(raiz) not in sys.path:
         sys.path.insert(0, str(raiz))
 
-    print("=" * 50)
-    print("  Omega Hub")
-    print("  UI:    http://127.0.0.1:8741/")
-    print("  API:   http://127.0.0.1:8741/saude")
-    print("  Token: omega-dev-local")
-    print(f"  Dados: {raiz / 'dados'}")
-    print("=" * 50)
-    print("Abrindo a interface no navegador...")
-    print("Pressione Ctrl+C para encerrar.\n")
-
+    # Importa o hub (configura logs em dados/omega.log) e abre a UI no navegador.
     from nucleo.api.principal import main as iniciar_hub
+    from nucleo.comum.logging import get_logger
 
+    log = get_logger("hub_entry")
+    log.info(
+        "omega_hub_iniciando",
+        ui="http://127.0.0.1:8741/",
+        api="http://127.0.0.1:8741/saude",
+        dados=str(raiz / "dados"),
+        log_file=str(raiz / "dados" / "omega.log"),
+    )
     iniciar_hub()
 
 

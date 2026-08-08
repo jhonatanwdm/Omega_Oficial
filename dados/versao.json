@@ -1,6 +1,11 @@
 {
-  "versao": "1.0.0",
+  "versao": "1.0.1",
   "changelog": [
+    {
+      "versao": "1.0.1",
+      "notas": "Versão nova do projeto 1.0.1: API Groq, UI redesenhada e lançamento windowed.",
+      "em": "2026-08-08T21:52:00+00:00"
+    },
     {
       "versao": "1.0.0",
       "notas": "Versão nova do projeto 1.0.0: UI web no hub, Flutter Windows e integração completa.",

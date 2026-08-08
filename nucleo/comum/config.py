@@ -49,10 +49,15 @@ class ConfigOmega(BaseSettings):
     openai_api_key: str = ""
     anthropic_api_key: str = ""
     gemini_api_key: str = ""
+    groq_api_key: str = ""
     ollama_base_url: str = "http://127.0.0.1:11434"
     ollama_modelo: str = "qwen2.5:7b"
 
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=str(caminhos_projeto() / ".env"),
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
 
 
 class EstadoRuntime(BaseModel):

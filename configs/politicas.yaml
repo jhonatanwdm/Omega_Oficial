@@ -11,8 +11,10 @@ cloud_llm:
   exige_confirmacao: true
   escopo_maximo_minutos: 60
   provedores_permitidos:
+    - groq
     - openai
     - anthropic
+    - gemini
 
 autoaperfeicoamento:
   pode_propor: true

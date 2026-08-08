@@ -1,4 +1,4 @@
-# Omega
+﻿# Omega
 
 Agente de IA pessoal híbrido (local + cloud autorizada), interface web no hub, cliente Flutter (Android, Web, Desktop) e núcleo Python.
 
@@ -61,4 +61,4 @@ Inicia o hub **e** abre a UI. Regenerar:
 
 ## Versão
 
-`1.0.0` — UI web no hub, Flutter Windows e integração completa.
+`1.0.1` - API Groq, UI redesenhada e lançamento windowed.

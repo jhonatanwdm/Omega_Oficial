@@ -7,6 +7,11 @@ llm_local:
   timeout_segundos: 120
 
 llm_cloud:
+  groq:
+    habilitado: false
+    modelo_padrao: "llama-3.3-70b-versatile"
+    env_key: GROQ_API_KEY
+    base_url: "https://api.groq.com/openai/v1"
   openai:
     habilitado: false
     modelo_padrao: "gpt-4o-mini"

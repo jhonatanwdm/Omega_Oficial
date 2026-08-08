@@ -4,45 +4,78 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Omega</title>
+  <link rel="icon" href="/ui/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/ui/estilos.css" />
 </head>
 <body>
-  <div class="atmosfera" aria-hidden="true"></div>
+  <div class="atmosfera" aria-hidden="true">
+    <div class="bruma bruma-a"></div>
+    <div class="bruma bruma-b"></div>
+    <div class="textura"></div>
+  </div>
+
   <main class="shell">
     <header class="hero" id="hero">
-      <p class="marca">Omega</p>
-      <p class="tagline">Seu agente pessoal, sempre perto.</p>
-      <div class="orbe idle" id="orbe" aria-hidden="true">
-        <span class="anel"></span>
-        <span class="nucleo"></span>
+      <div class="hero-copia">
+        <p class="marca">Omega</p>
+        <h1 class="headline">Fale. Eu cuido.</h1>
+        <p class="tagline">Seu agente pessoal, sempre perto — local, rápido e à sua disposição.</p>
+        <button type="button" class="cta" id="btnIniciar">Conversar</button>
       </div>
-      <button type="button" class="cta" id="btnIniciar">Conversar</button>
+      <div class="hero-visual">
+        <div class="orbe idle" id="orbe" aria-hidden="true">
+          <span class="halo"></span>
+          <span class="anel"></span>
+          <span class="anel anel-2"></span>
+          <span class="nucleo"></span>
+        </div>
+      </div>
       <p class="status" id="statusHub">Conectando ao hub…</p>
     </header>
 
     <section class="chat oculto" id="painelChat" aria-label="Conversa com Omega">
-      <div class="chat-topo">
-        <div class="chat-marca">
-          <strong>Omega</strong>
-          <span class="chip-fase" id="chipFase">pronto</span>
+      <header class="chat-topo">
+        <div class="chat-identidade">
+          <div class="orbe-mini idle" id="orbeMini" aria-hidden="true">
+            <span class="anel"></span>
+            <span class="nucleo"></span>
+          </div>
+          <div>
+            <p class="chat-marca">Omega</p>
+            <p class="chip-fase" id="chipFase">pronto</p>
+          </div>
         </div>
         <div class="acoes">
-          <button type="button" class="icone" id="btnVoz" title="Falar" aria-label="Ativar voz">Voz</button>
-          <button type="button" class="icone" id="btnSync" title="Sincronizar" aria-label="Sincronizar">Sync</button>
+          <button type="button" class="icone" id="btnVoz" title="Falar" aria-label="Ativar voz">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path fill="currentColor" d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3Zm5-3a1 1 0 1 0-2 0 3 3 0 0 1-6 0 1 1 0 1 0-2 0 5 5 0 0 0 4 4.9V18h-2a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2h-2v-2.1A5 5 0 0 0 17 11Z"/>
+            </svg>
+          </button>
+          <button type="button" class="icone" id="btnSync" title="Sincronizar" aria-label="Sincronizar">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path fill="currentColor" d="M12 6V3L8.5 6.5 12 10V7a5 5 0 0 1 4.9 6.1l1.7.7A7 7 0 0 0 12 6Zm-4.9 4.9L5.4 10.2A7 7 0 0 0 12 18v3l3.5-3.5L12 14v3a5 5 0 0 1-4.9-6.1Z"/>
+            </svg>
+          </button>
         </div>
-      </div>
-      <div class="orbe-mini idle" id="orbeMini" aria-hidden="true">
-        <span class="anel"></span>
-        <span class="nucleo"></span>
-      </div>
-      <div class="mensagens" id="mensagens"></div>
+      </header>
+
+      <div class="mensagens" id="mensagens" role="log" aria-live="polite"></div>
+
       <form class="composer" id="formChat">
-        <input id="entrada" type="text" placeholder="Fale com o Omega…" autocomplete="off" />
-        <button type="submit" id="btnEnviar">Enviar</button>
+        <label class="sr-only" for="entrada">Mensagem</label>
+        <input id="entrada" type="text" placeholder="Escreva para o Omega…" autocomplete="off" />
+        <button type="submit" id="btnEnviar" aria-label="Enviar">
+          <span>Enviar</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path fill="currentColor" d="M3.4 11.2 20.1 3.6a1 1 0 0 1 1.3 1.3l-7.6 16.7a1 1 0 0 1-1.9-.1l-2.1-6.4-6.4-2.1a1 1 0 0 1 0-1.8Z"/>
+          </svg>
+        </button>
       </form>
+      <p class="status status-chat" id="statusChat" hidden></p>
     </section>
   </main>
   <script src="/ui/app.js"></script>

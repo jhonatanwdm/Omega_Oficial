@@ -11,6 +11,8 @@ from nucleo.politicas.motor_politicas import MotorPoliticas
 
 log = get_logger("llm")
 
+GROQ_BASE_URL = "https://api.groq.com/openai/v1"
+
 
 @dataclass
 class RespostaLLM:
@@ -49,6 +51,12 @@ class RoteadorLLM:
         if local:
             return local
 
+        # Fallback cloud (ex.: Groq) só se a política/sessão cloud estiver ativa.
+        if self.politicas.cloud_ativa():
+            cloud = await self._cloud(prompt, sistema)
+            if cloud:
+                return cloud
+
         return self._mock(prompt, sistema)
 
     async def _ollama(self, prompt: str, sistema: str | None) -> RespostaLLM | None:
@@ -74,6 +82,29 @@ class RoteadorLLM:
             return None
 
     async def _cloud(self, prompt: str, sistema: str | None) -> RespostaLLM | None:
+        # Groq primeiro (OpenAI-compatible) quando a chave estiver presente.
+        if self.settings.groq_api_key:
+            try:
+                from openai import AsyncOpenAI
+
+                cfg = self.provedores.get("llm_cloud", {}).get("groq", {})
+                modelo = cfg.get("modelo_padrao", "llama-3.3-70b-versatile")
+                base_url = cfg.get("base_url", GROQ_BASE_URL)
+                client = AsyncOpenAI(api_key=self.settings.groq_api_key, base_url=base_url)
+                msgs: list[dict[str, Any]] = []
+                if sistema:
+                    msgs.append({"role": "system", "content": sistema})
+                msgs.append({"role": "user", "content": prompt})
+                resp = await client.chat.completions.create(model=modelo, messages=msgs)
+                return RespostaLLM(
+                    texto=resp.choices[0].message.content or "",
+                    provedor="groq",
+                    modelo=modelo,
+                    usado_cloud=True,
+                )
+            except Exception as e:
+                log.info("groq_falhou", erro=str(e))
+
         if self.settings.openai_api_key:
             try:
                 from openai import AsyncOpenAI

@@ -142,6 +142,15 @@ async def ui_raiz() -> FileResponse:
     return FileResponse(index)
 
 
+@app.get("/favicon.ico")
+async def favicon() -> FileResponse:
+    svg = _pasta_estatico() / "favicon.svg"
+    if not svg.is_file():
+        from fastapi import HTTPException
+
+        raise HTTPException(status_code=404, detail="Favicon não encontrado")
+    return FileResponse(svg, media_type="image/svg+xml")
+
 
 @app.get("/saude")
 async def saude() -> dict[str, Any]:
