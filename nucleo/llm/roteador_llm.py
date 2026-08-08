@@ -110,6 +110,18 @@ class RoteadorLLM:
                 return RespostaLLM(texto=texto, provedor="anthropic", modelo=modelo, usado_cloud=True)
             except Exception as e:
                 log.info("anthropic_falhou", erro=str(e))
+
+        if self.settings.gemini_api_key:
+            from nucleo.llm.gemini import gerar_gemini
+
+            gem = await gerar_gemini(prompt, sistema)
+            if gem:
+                return RespostaLLM(
+                    texto=gem["texto"],
+                    provedor=gem["provedor"],
+                    modelo=gem["modelo"],
+                    usado_cloud=True,
+                )
         return None
 
     def _mock(self, prompt: str, sistema: str | None) -> RespostaLLM:

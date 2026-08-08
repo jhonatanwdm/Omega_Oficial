@@ -44,9 +44,11 @@ class ConfigOmega(BaseSettings):
     omega_qdrant_url: str = "http://127.0.0.1:6333"
     omega_host: str = "0.0.0.0"
     omega_porta: int = 8741
+    omega_abrir_ui: bool = True
     cloud_llm_habilitada: bool = False
     openai_api_key: str = ""
     anthropic_api_key: str = ""
+    gemini_api_key: str = ""
     ollama_base_url: str = "http://127.0.0.1:11434"
     ollama_modelo: str = "qwen2.5:7b"
 

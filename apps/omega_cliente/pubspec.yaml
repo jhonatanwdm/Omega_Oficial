@@ -1,7 +1,7 @@
 name: omega_cliente
-description: Cliente Omega — Android, Web e Desktop
+description: Cliente Omega - Android, Web e Desktop
 publish_to: "none"
-version: 0.1.0+1
+version: 1.0.0+1
 
 environment:
   sdk: ">=3.5.0 <4.0.0"
@@ -13,19 +13,13 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_riverpod: ^2.6.1
-  go_router: ^14.6.2
   dio: ^5.7.0
   web_socket_channel: ^3.0.1
   flutter_animate: ^4.5.2
-  rive: ^0.13.20
-  lottie: ^3.1.3
   drift: ^2.21.0
-  sqlite3_flutter_libs: ^0.5.28
-  path_provider: ^2.1.5
+  sqlite3: ^2.4.0
   path: ^1.9.0
-  record: ^5.1.2
-  just_audio: ^0.9.42
-  intl: ^0.19.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:

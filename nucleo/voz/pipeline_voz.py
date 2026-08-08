@@ -37,8 +37,8 @@ class PipelineVoz:
 
             self._whisper = WhisperModel("base", device="cpu", compute_type="int8")
             log.info("whisper_carregado", modelo="base")
-        except Exception as e:
-            log.info("whisper_fallback", erro=str(e))
+        except Exception:
+            log.info("whisper_opcional_ausente", modo="stt_fallback_leve")
 
     def transcrever(self, audio_bytes: bytes, idioma: str = "pt") -> ResultadoSTT:
         if self._whisper is not None:

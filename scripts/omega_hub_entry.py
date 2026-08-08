@@ -39,16 +39,17 @@ def main() -> None:
     import os
 
     os.chdir(raiz)
-    # Garante imports do monorepo quando rodando fora do bundle
     if str(raiz) not in sys.path:
         sys.path.insert(0, str(raiz))
 
     print("=" * 50)
     print("  Omega Hub")
-    print("  http://127.0.0.1:8741")
+    print("  UI:    http://127.0.0.1:8741/")
+    print("  API:   http://127.0.0.1:8741/saude")
     print("  Token: omega-dev-local")
     print(f"  Dados: {raiz / 'dados'}")
     print("=" * 50)
+    print("Abrindo a interface no navegador...")
     print("Pressione Ctrl+C para encerrar.\n")
 
     from nucleo.api.principal import main as iniciar_hub

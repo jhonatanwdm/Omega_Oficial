@@ -9,6 +9,13 @@ def test_saude_e_chat():
         assert s.status_code == 200
         assert s.json()["ok"] is True
 
+        ui = client.get("/")
+        assert ui.status_code == 200
+        assert "Omega" in ui.text
+
+        css = client.get("/ui/estilos.css")
+        assert css.status_code == 200
+
         negado = client.post("/chat", json={"texto": "oi"})
         assert negado.status_code == 401
 

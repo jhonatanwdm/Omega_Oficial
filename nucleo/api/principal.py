@@ -1,12 +1,18 @@
 from __future__ import annotations
 
 import base64
+import os
+import threading
+import webbrowser
 from contextlib import asynccontextmanager
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 from fastapi import Depends, FastAPI, File, UploadFile, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from nucleo import __version__
 from nucleo.aperfeicoamento.servico_aperfeicoamento import ServicoAperfeicoamento
@@ -25,7 +31,7 @@ from nucleo.api.esquemas import (
 from nucleo.atualizacoes.servico_atualizacoes import ServicoAtualizacoes
 from nucleo.backups.servico_backups import ServicoBackups
 from nucleo.comum.auth import Autorizacao, exigir_dev
-from nucleo.comum.config import get_configs, get_settings
+from nucleo.comum.config import get_configs, get_settings, recurso_interno
 from nucleo.comum.logging import configurar_logs, get_logger
 from nucleo.ferramentas.registro import RegistroFerramentas
 from nucleo.llm.roteador_llm import RoteadorLLM
@@ -59,6 +65,23 @@ class AppState:
 state = AppState()
 
 
+def _pasta_estatico() -> Path:
+    return recurso_interno("nucleo", "api", "estatico")
+
+
+def _abrir_ui_no_navegador(porta: int) -> None:
+    url = f"http://127.0.0.1:{porta}/"
+
+    def _abrir() -> None:
+        try:
+            webbrowser.open(url)
+            log.info("ui_aberta_no_navegador", url=url)
+        except Exception as e:
+            log.info("ui_navegador_indisponivel", detalhe=str(e))
+
+    threading.Timer(1.2, _abrir).start()
+
+
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     state.memoria = ServicoMemoria()
@@ -88,6 +111,10 @@ async def lifespan(_: FastAPI):
         }
     )
     log.info("hub_omega_pronto", versao=__version__)
+    settings = get_settings()
+    em_teste = bool(os.environ.get("PYTEST_CURRENT_TEST") or os.environ.get("OMEGA_TESTE"))
+    if settings.omega_abrir_ui and not em_teste:
+        _abrir_ui_no_navegador(settings.omega_porta)
     yield
 
 
@@ -99,6 +126,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+_estatico = _pasta_estatico()
+if _estatico.is_dir():
+    app.mount("/ui", StaticFiles(directory=str(_estatico)), name="ui")
+
+
+@app.get("/")
+async def ui_raiz() -> FileResponse:
+    index = _pasta_estatico() / "index.html"
+    if not index.is_file():
+        from fastapi import HTTPException
+
+        raise HTTPException(status_code=404, detail="UI estática não encontrada")
+    return FileResponse(index)
+
 
 
 @app.get("/saude")

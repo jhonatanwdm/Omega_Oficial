@@ -10,12 +10,12 @@
   <link rel="stylesheet" href="/ui/estilos.css" />
 </head>
 <body>
-  <div class="atmosfera"></div>
+  <div class="atmosfera" aria-hidden="true"></div>
   <main class="shell">
     <header class="hero" id="hero">
       <p class="marca">Omega</p>
       <p class="tagline">Seu agente pessoal, sempre perto.</p>
-      <div class="orbe" id="orbe" aria-hidden="true">
+      <div class="orbe idle" id="orbe" aria-hidden="true">
         <span class="anel"></span>
         <span class="nucleo"></span>
       </div>
@@ -25,11 +25,18 @@
 
     <section class="chat oculto" id="painelChat" aria-label="Conversa com Omega">
       <div class="chat-topo">
-        <strong>Omega</strong>
-        <div class="acoes">
-          <button type="button" class="icone" id="btnVoz" title="Falar">🎤</button>
-          <button type="button" class="icone" id="btnSync" title="Sincronizar">↻</button>
+        <div class="chat-marca">
+          <strong>Omega</strong>
+          <span class="chip-fase" id="chipFase">pronto</span>
         </div>
+        <div class="acoes">
+          <button type="button" class="icone" id="btnVoz" title="Falar" aria-label="Ativar voz">Voz</button>
+          <button type="button" class="icone" id="btnSync" title="Sincronizar" aria-label="Sincronizar">Sync</button>
+        </div>
+      </div>
+      <div class="orbe-mini idle" id="orbeMini" aria-hidden="true">
+        <span class="anel"></span>
+        <span class="nucleo"></span>
       </div>
       <div class="mensagens" id="mensagens"></div>
       <form class="composer" id="formChat">

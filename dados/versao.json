@@ -1,6 +1,23 @@
 {
-  "versao": "0.1.1",
+  "versao": "1.0.0",
   "changelog": [
+    {
+      "versao": "1.0.0",
+      "notas": "Versão nova do projeto 1.0.0: UI web no hub, Flutter Windows e integração completa.",
+      "em": "2026-08-08T21:27:33.198690+00:00"
+    },
+    {
+      "versao": "0.1.1",
+      "notas": "patch",
+      "em": "2026-08-08T21:24:45.689014+00:00",
+      "backup_id": "20260808T212445Z_pre_update_0.1.1"
+    },
+    {
+      "versao": "0.1.1",
+      "notas": "patch",
+      "em": "2026-08-08T20:32:34.072889+00:00",
+      "backup_id": "20260808T203234Z_pre_update_0.1.1"
+    },
     {
       "versao": "0.1.1",
       "notas": "patch",

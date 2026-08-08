@@ -1,21 +1,22 @@
+import 'package:omega_cliente/dados/omega_db.dart';
 import 'package:omega_cliente/servicos/omega_api.dart';
 
-/// Sincronização simples cliente ← hub (cursor por entidade).
+/// Sincronização cliente ← hub com cursores persistidos no Drift.
 class OmegaSync {
-  OmegaSync(this.api);
+  OmegaSync(this.api, this.db);
 
   final OmegaApi api;
-  final Map<String, int> _cursores = {
-    'mensagens': 0,
-    'conhecimento': 0,
-    'agenda': 0,
-  };
+  final OmegaDb db;
+
+  static const entidades = ['mensagens', 'conhecimento', 'agenda'];
 
   Future<Map<String, dynamic>> puxarTudo() async {
     final out = <String, dynamic>{};
-    for (final entidade in _cursores.keys) {
-      final r = await api.syncPull(entidade, _cursores[entidade] ?? 0);
-      _cursores[entidade] = (r['cursor'] as int?) ?? _cursores[entidade]!;
+    for (final entidade in entidades) {
+      final desde = await db.cursorDe(entidade);
+      final r = await api.syncPull(entidade, desde);
+      final cursor = (r['cursor'] as num?)?.toInt() ?? desde;
+      await db.salvarCursor(entidade, cursor);
       out[entidade] = r;
     }
     return out;

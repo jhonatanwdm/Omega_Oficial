@@ -36,6 +36,7 @@ a = Analysis(
         (str(raiz / "configs"), "configs"),
         (str(raiz / "dados" / "versao.json"), "dados"),
         (str(raiz / "contratos"), "contratos"),
+        (str(raiz / "nucleo" / "api" / "estatico"), "nucleo/api/estatico"),
     ],
     hiddenimports=hidden
     + [

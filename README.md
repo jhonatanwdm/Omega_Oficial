@@ -1,38 +1,51 @@
 # Omega
 
-Agente de IA pessoal híbrido (local + cloud autorizada), interface Flutter (Android, Web, Desktop) e núcleo Python.
+Agente de IA pessoal híbrido (local + cloud autorizada), interface web no hub, cliente Flutter (Android, Web, Desktop) e núcleo Python.
 
 ## Início rápido
 
+### Hub + UI web (recomendado)
+
 ```powershell
-# 1) Ambiente Python
+# Duplo clique ou:
+.\Omega.exe
+```
+
+Abre o hub em `http://127.0.0.1:8741/` e o navegador automaticamente.
+Token das APIs: `omega-dev-local` (header `X-Omega-Token`).
+
+### Desenvolvimento Python
+
+```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-
-# 2) Infra (opcional — Docker)
-docker compose up -d
-
-# 3) Hub Omega
 python -m nucleo.api.principal
+```
 
-# 4) Cliente Flutter (requer Flutter SDK)
-cd apps/omega_cliente
+### Cliente Flutter
+
+```powershell
+$env:Path = "C:\flutter\bin;" + $env:Path
+cd apps\omega_cliente
 flutter pub get
+dart run build_runner build
 flutter run -d windows
+# ou: flutter run -d chrome
 ```
 
 Sem Docker, o hub sobe com SQLite + memória vetorial embutida + LLM mock/Ollama.
 
 ## Estrutura
 
-- `nucleo/` — cérebro FastAPI
+- `nucleo/` — cérebro FastAPI + UI estática (`nucleo/api/estatico`)
 - `sub_agentes/` — agentes especializados
-- `apps/omega_cliente/` — Flutter
+- `apps/omega_cliente/` — Flutter (android/web/windows)
 - `configs/` — políticas, permissões, diretrizes, padrões
+- `migrations/` — baseline Alembic
 - `docs/` — documentação PT-BR
 
-## Executável Windows (Hub)
+## Executável Windows
 
 Um único arquivo na raiz:
 
@@ -40,9 +53,7 @@ Um único arquivo na raiz:
 Omega.exe
 ```
 
-Duplo clique para iniciar. Hub em `http://127.0.0.1:8741` (token `omega-dev-local`).
-
-Para regenerar:
+Inicia o hub **e** abre a UI. Regenerar:
 
 ```powershell
 .\scripts\build_exe.ps1
@@ -50,4 +61,4 @@ Para regenerar:
 
 ## Versão
 
-`0.1.0` — Fundação + módulos das fases 0–6 + executável Windows.
+`1.0.0` — UI web no hub, Flutter Windows e integração completa.

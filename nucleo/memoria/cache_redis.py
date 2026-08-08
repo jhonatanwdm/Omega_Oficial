@@ -22,8 +22,8 @@ class CacheOmega:
             client.ping()
             self._redis = client
             log.info("redis_conectado")
-        except Exception as e:
-            log.info("redis_fallback_memoria", erro=str(e))
+        except Exception:
+            log.info("redis_opcional_ausente", modo="memoria_local")
 
     def set_json(self, chave: str, valor: Any, ttl: int | None = 3600) -> None:
         raw = json.dumps(valor, ensure_ascii=False, default=str)
